@@ -1,4 +1,4 @@
-#Python Book 
+#Python
 ##Basics
 
 ###Variables 
@@ -30,6 +30,9 @@ aList [1:3] (insert from 1 until 3 not including 3)
 * Almost like a Map in java
 
 ####Example 
+Python doesnt have any behaviour for any operator. For every object internally the operators are defined. for example 
+	a>b => a.__gt__(b)	
+anything can be made *iterable* by created a next method for the collection. the next gives the next object and when cant(done with iterating basically) throws an exception 
 Python can do Operator loading : 
 
 		def plus(a,b)
@@ -73,16 +76,15 @@ Now the Files can be opened as a text file or a binary File . before Python didn
 Binary file is just like a stream of bytes. With mode being set as text implies that Now it will decode automatically as a UNICOde character. 
 
 ##OS
-Same commands in python can be used to make a dir wether its a Windows machine or a Unix machine. 
-Os is alias for posix in mac ans so forth 
+Same commands in python can be used to make a dir be it a Windows machine or a Unix machine. Os is alias for posix in mac and so forth 
 
-sys : things related to the Interpretor python is running on. 
+*sys* : things related to the Interpretor python is running on. 
 contains variable **path**, which tells the directories where the python import command is going to look for importing a module. 
 *sys.platform* tells the platform like darwin, posix, etc 
 
-**os.popen* doesnt work that well with Windows. basically it goes off and creates another subprocess and runs the command u gave it, will return a File object which can be used to read the output . It doesn get killed when the parent calling python process dies. 
+**os.popen* doesnt work that well with Windows. Basically it goes off and creates another subprocess and runs the command u gave it, will return a File object which can be used to read the output . It doesn get killed when the parent calling python process dies. 
 
-*subprocess* Better use peopne using this module, because there you get a better control over the program that we created. example : you can tell it shell = false this would mean that the program would be just executed at kernel level without having it create a shell, which then in turns runs the process. 
+*subprocess* Better use popen using this module, because there you get a better control over the program that we created. example : you can tell it shell = false this would mean that the program would be just executed at kernel level without having it create a shell, which then in turns runs the process. 
 
 ####Directories 
 path.os.exists(), path.os.dirname(), path.os.basename, and path.os.join().
@@ -106,7 +108,7 @@ however os.path.walk takes in 3 methods. : things to do on the dir, things to do
         rec = rec[:1].split(':') 
         rec= dict(zip(lbl,rec)) //matches the lables with the list vales : creates a list of key value pairs
         recs.append(rec) //puts the key value pair dictionary in the list 		
-coolest way of doing this in one line of code. 
+cool way of doing this in one line of code. 
 
     lbl = ('name','title')
     recs=[]
@@ -117,21 +119,17 @@ coolest way of doing this in one line of code.
         // even shorter
         recs.append({item[0]: item[1] for item in zip(lbl,rec[:1].split(':') ) })
 ####Function Arguments
-Can have default param values, and they must be present in the leftmost positions.  **Variable no of params** we can pass in a dictionary too to a python function 
-    def func(aVar, bVar='aaa', *cvar, **dVar)
-The order is this, normal param then default ones, variable no of positional params(list), variable no of named params(Dict)
-you can upack the parameters at runtime. 
+* **default param values**, and they must be present in the leftmost positions.  * **Variable no of params** we can pass in a dictionary too to a python function The order is this, normal param then default ones, variable no of positional params(list), variable no of named params(Dict)
+	def func(aVar, bVar='aaa', *cvar, **dVar)
+This was you can upack the parameters at runtime. 
 	def someFunc(aVar, bVar):
     	print('aVar={0} bVar = {1}'.format(aVar, bVar))
 	data = {'aVar':10, 'bVar':20}
 	someFunc(**data)    Data inside the dictionary is not ordered internally. the data is stored in form of red black tree. 
-Python doesnt have any behaviour for any operator. For every object internally the operators are defined. for example 
-	a>b => a.__gt__(b)	
-anything can be made *iterable* by created a next method for the collection. the next gives the next object and when cant(done with iterating basically) throws an exception 
 
-####Lambdasthey can be just one expression long in Python    function-name = lambda param-list: exprList comprehension is faster than for loop because it gets optimized. Issue : It creates a seperate result list . 
+####Lambdasthey can be just one expression long in Python    function-name = lambda param-list: exprList comprehension is faster than for loop because it gets optimized. However, it creates a seperate result list . 
 	nums = range(10)
-	squares = [num**2 for num in nums if num%2 ]Changed it to be a generator expression, so now the its iterating the list and getting just one element from the list at a time. Its almost as fast as list comrehension. This is more like an iterator rather than a processing on the stream. 	squares = (num**2 for num in nums if num%2 )	**range** : list of integers in memory from 1-value provided. 
+	squares = [num**2 for num in nums if num%2 ]Changed it to be a generator expression, so now the its iterating the list and getting just one element from the list at a time. Its almost as fast as list comrehension. This is more like an iterator rather than a processing on the stream. 	squares = (num**2 for num in nums if num%2 )	**range** : list of integers in memory from 1-value provided. 
 xrange in python 2. no more xrange in python3. 
 range behaves like a generator, and would expand the elements only when needed. 
 
@@ -141,7 +139,7 @@ range behaves like a generator, and would expand the elements only when needed.
     print (cards)
         
 
-Random no generator within Python is pretty bad and not a random no generator. ####Generators**Yeild** it would get the record and then give the control back to the calling method and the method stays on the stack and just goes to sleep untill the control method calls it again.      def read_data():
+Random no generator within Python should be avioded. ####Generators**Yeild** it would get the record and then give the control back to the calling method and the method stays on the stack and just goes to sleep untill the control method calls it again.      def read_data():
         with open('file.txt') as f:
             for rec in f:
             yeild rec[:-1]//delete new line char    def data in read_data:
@@ -149,21 +147,21 @@ Random no generator within Python is pretty bad and not a random no generator. 
 A generator is like a normal function, but instead of a **return** statement, it has a **yield** statement. Each time the yield statement is reached, it provides the next value in the sequence. When there are no more values, the function calls return, and the loop stops. A generator function maintains state between calls, unlike a normal function.####Dictionary Comrehensions 
     file_sizes = { f:os.path.getsize(DIR + f) for f in files }####String IO
 Python just appends adjacent strings. Should not be comma seperated. 
-*StringIO* object is initialized with a string, but acts like a normal fle object such as you get from the **open()** function. You can iterate through its lines, or call **read()** or **readlines()** on it.Can be formatted very interresting manner
+*StringIO* object is initialized with a string, but acts like a normal fle object such as you get from the **open()** function. You can iterate through its lines, or call **read()** or **readlines()** on it.Can be formatted very any manner
 
 	result = 'a = |{0:7.3.f}|'.format(a)Format can also take in a list as paramter. They can be access using index directly *{0}* or like element and then its index *0[1]*
 Format is also able to understand **named placeholders**
 	result= 'foo ={foo} bar ={bar}'.format(bar=10, foo=10)
     result= 'foo ={foo} bar ={bar}'.format(**aDict)
     print(result)Even if the Dictionary has more elements than the no of keys provided in the fomat specifier, it would still work, however it isnt the same with a list 
-##ObjectOriented	
+##ObjectOriented	
 No Polymophism in Python 
 Class in python are a namespace which can create objects.     class Person:
-    	def foo(self):
+    	def foo(self):
 			print('Inside Person::foo')	print(dir(Person))// prints namespace of the classwhen u declare a class in python it gets allocated some space. and in this space the methods are placed. 
 A variable comes into existance only when u assign it a vaule. 
     class Person:
-    	def foo(self):
+    	def foo(self):
 			print('firstname : {0}'.format(self.firstName))	p = Person()
 	p.firstName = 'John'
 	p2=Person()	p.foo
@@ -184,9 +182,9 @@ No Polymophism in Python
 	p=None //makes call to the destructor
 
 When you creates a class Python 3 creates a lot more methods which would help various things. In Python <3 versions one would have to inherit the class from Object to get them to work properly. 
-in Python the keyword self is not a keyword, its just the way python uses to reference this variable. We can use this name for the same work. 
-Methods are present in the class. If u change the reference for one, it changes for all of them. 
-Variables by convention can be made private using the _ convention. 
+in Python the keyword self is not a keyword, its just the way python uses to reference *this* variable. We can use this name for the same work. 
+Methods are present in the class. If u change the reference for one, it changes for all of them. 
+Variables by convention can be made private using the _ convention. 
 **Name mangaling** if a variable is created using **__** the namespace will show it in a different way, so it doesn't make the variable less visible, just a bit difficult to find. 
     class Person:
 		def __init__(self, firstName):
@@ -421,7 +419,7 @@ Using wraps we can access the pyDocs of the decorator method.
 	w.doOtherStuff -> calls foo 
 	w1.doOtherStuff -> doesnt call foo.. 	Functions are just pointers to some point of code. ###Databases
 * Different way to create connection with every database* Cursor return list based dat. * Dictionary form of output is not returned by every version. 
-* Orm framwork by Django similar to hibernate in java* Different DB's have different way of how the connection is made		import sqlite3 as dbcreating dictionary :	def row_as_dict(cursor):    	'''Generate rows as dictionaries'''    	column_names = [desc[0] for desc in cursor.description]    	for row in cursor.fetchall():        	row_dict = dict(list(zip(column_names, row)))        	yield row_dict##Networking 
+* Orm framwork by Django similar to hibernate in java* Different DB's have different way of how the connection is made		import sqlite3 as dbcreating dictionary :	def row_as_dict(cursor):    	'''Generate rows as dictionaries'''    	column_names = [desc[0] for desc in cursor.description]    	for row in cursor.fetchall():        	row_dict = dict(list(zip(column_names, row)))        	yield row_dict##Networking 
 * make use of ParaMiko library for ssh related stuff 
 * has stuff to setup reverse proxy 
 
