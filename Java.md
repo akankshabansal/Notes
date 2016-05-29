@@ -65,12 +65,14 @@ There are third parties who have written such peices of code for you..
 ###Generics 
 Enable type to be a parameter while defining a class, method, interface etc.. 
 Advantages : 
+
 1. Compile time type checking 
 2. Simple Readable code 
 3. Generic algorithm 
-example write a method which sorts an Array, we wouldnt care what type of elemets are there in the array as long as the class implements Comparable class 
-the above can be achieved by creating a bounded Type paramter.. 
 
+Example: Write a method which sorts an Array, we wouldnt care what type of elemets are there in the array as long as the class implements Comparable class 
+the above can be achieved by creating a bounded Type paramter.. 
+    
     public <T extends Comparablei<T>> void sort(T t){
 
     }
@@ -90,7 +92,7 @@ It is called exactly once before the garbage collector frees the memory for obje
 A class overrides finalize to perform any clean up that must be performed before an object is reclaimed. 
 If the JVM exits without performing garbage collection, the OS may free the objects, in which case the finalize method doesnt get called.
 
-        protected void finalize() throws Throwable { ... }
+		protected void finalize() throws Throwable { ... }
 
 4. **getClass** method
 returns the java.lang.Class object for the class that was used to instantiate the object. 
@@ -109,19 +111,19 @@ base the hash function on immutable properties of the object
 7. wait and notify thread signaling methods
 Every object has two wait lists for threads associated with it. One wait list is used by the synchronized keyword to acquire the mutex lock associated with the object. If the mutex lock is currently held by another thread, the current thread is added to the list of blocked threads waiting on the mutex lock. The other wait list is used for signaling between threads accomplished through the wait and notify and notifyAll methods.
 
-Use of wait/notify allows efficient coordination of tasks between threads. When one thread needs to wait for another thread to complete an operation, or needs to wait until an event occurs, the thread can suspend its execution and wait to be notified when the event occurs. This is in contrast to polling, where the thread repeatedly sleeps for a short period of time and then checks a flag or other condition indicator. Polling is both more computationally expensive, as the thread has to continue checking, and less responsive since the thread won't notice the condition has changed until the next time to check.
+Use of wait/notify allows efficient coordination of tasks between threads. When one thread needs to wait for another thread to complete an operation, or needs to wait until an event occurs, the thread can suspend its execution and wait to be notified when the event occurs. 
 
-The wait methods[edit]
-There are three overloaded versions of the wait method to support different ways to specify the timeout value: java.lang.Object.wait(), java.lang.Object.wait(long) and java.lang.Object.wait(long, int). The first method uses a timeout value of zero (0), which means that the wait does not timeout; the second method takes the number of milliseconds as a timeout; the third method takes the number of nanoseconds as a timeout, calculated as 1000000 * timeout + nanos.
+In *polling*,  the thread repeatedly sleeps for a short period of time and then checks a flag or other condition indicator. It is both more computationally expensive, as the thread has to continue checking, and less responsive since the thread won't notice the condition has changed until the next time to check.
 
 The thread calling wait is blocked (removed from the set of executable threads) and added to the object's wait list. The thread remains in the object's wait list until one of three events occurs:
 
-another thread calls the object's notify or notifyAll method;
-another thread calls the thread's java.lang.Thread.interrupt method; or
-a non-zero timeout that was specified in the call to wait expires.
+1. another thread calls the object's notify or notifyAll method;
+2. another thread calls the thread's java.lang.Thread.interrupt method; or
+3. a non-zero timeout that was specified in the call to wait expires.
+
 The wait method must be called inside of a block or method synchronized on the object. This insures that there are no race conditions between wait and notify. When the thread is placed in the wait list, the thread releases the object's mutex lock. After the thread is removed from the wait list and added to the set of executable threads, it must acquire the object's mutex lock before continuing execution.
 
-The notify and notifyAll methods[edit]
+**notify and notifyAll methods**
 The java.lang.Object.notify() and java.lang.Object.notifyAll() methods remove one or more threads from an object's wait list and add them to the set of executable threads. notify removes a single thread from the wait list, while notifyAll removes all threads from the wait list. Which thread is removed by notify is unspecified and dependent on the JVM implementation.
 
 The notify methods must be called inside of a block or method synchronized on the object. This insures that there are no race conditions between wait and notify.
