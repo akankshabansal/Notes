@@ -39,7 +39,24 @@ type => RESET and can potentially close a valid connection for the client.
 
 ### Routing Security
 __Autonomous systems__ : connected group of one or more Internet Protocol prefixes under a single routing policy (aka domain)
-__ARP__ : Address resolution protocol . 
+__ARP__ : Address resolution protocol. Converts IP -> Ethernet address. Node A can confuse gateway into sending it traffic for Node B. By proxying traffic, node A can read/inject packets into B’s session (e.g. WiFi networks)
+* __RPKI__ : AS obtains a cert. for its IP prefixes, from regional authority. Attaches ROA to all path advertisements. Advertisements without a valid ROA are ignored. Defends against a misbehaving AS (but not a network attacker). 
+* __SBGP__ : Sign every hop of a path advertisement - Not used much. 
+
 __OSPF__: used for routing within AS 
-__BGP__: routing between AS 
+* Link State Advertisements (LSA): Flooded throughout AS so that all routers in the AS have a complete view of  topology. Links must be advertised by both ends
+* Neighbor discovery : Routers dynamically discover direct neighbors on attached links ⇒ sets up an “adjacenty”
+* OSPF message integrity (unlike BGP):  Every link can have its own shared secret (though its found to be using unsecure crupto tool). And makes use of same key for every msg. 
+* If a single malicious router, valid LSAs may still reach dest. The“fight back” mechanism: if a router receives its own LSA with a newer timestamp than the latest it sent, it immediately floods a new LSA
+
+__BGP__: routing between AS.  Security issues: unauthenticated route updates. Anyone can re‐route all traffic for a victim IP to attacker’s network. Anyone can hijack route to victim (next slides)
+
+
+
+
+
+
+
+
+
 
