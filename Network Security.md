@@ -52,6 +52,26 @@ __OSPF__: used for routing within AS
 __BGP__: routing between AS.  Security issues: unauthenticated route updates. Anyone can re‐route all traffic for a victim IP to attacker’s network. Anyone can hijack route to victim (next slides)
 
 
+### DNS Domain Name System
+Hierarchical service to determine the IP for a given address
+* Root name servers for top‐level domain
+* Authoritative name servers for subdomains (NS)
+* Local name resolvers contact authoritative servers when they do not know a name
+
+DNS record types (partial list):
+- NS : name server (points to other server)
+- A  : address record (contains IP address)
+- MX : address in charge of handling email
+- TXT: generic text (e.g. used to distribute site public keys (DKIM)) 
+
+* DNS responses are cached for quick response 
+* Also speeds up finding NS records for domains 
+* DNS negative queries are cached for 24 hours. (Save time for nonexistent sites, e.g. common misspelling)
+* Cached data periodically times out
+* Lifetime (TTL) of data controlled by owner of data
+* TTL passed with every record
+
+Query Id : 16 bit random value, saved in DNS query. usually DNS queries are run over UDP. 
 
 
 
