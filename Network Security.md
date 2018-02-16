@@ -73,9 +73,25 @@ DNS record types (partial list):
 
 Query Id : 16 bit random value, saved in DNS query. usually DNS queries are run over UDP. 
 
+* Easdropping is possible 
+* Packet injection is possible 
+* Route Stealing 
 
+### Network Security  
 
+#### Link Layer : iProtocol 
+Focused on trying to make wireless communication as secure as a wire connection. 
+* __Supplicant__ => end user device. 
+* __Authenticator__ => wireless access point service/device being accessed by the user. 
+* __Authentication server__ : some server/endpoint controlling access 
 
+In this step you want to enable communication, without revealing much about each.. 
+__802.11__ association : No data encryption of security available at this point. 
+__802.1X/RADIUS__ : authenticator using authenticating server determine if the the supplicant is allowed to use the service. 
+__4 way handshake__ : setsup a key which ensures that the all data/communication between device and router is secure and no one else will be able to decrypt it. (WEP is not secure at this....)
+
+#### TCP security
+Need to isolate conversation from hosts which might be malicious which are routing data. TCP state is easy to guess so we would want to make sure attackers are not able to decrypt. 
 
 
 
