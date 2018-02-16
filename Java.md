@@ -1,4 +1,4 @@
-###Static 
+### Static 
 We can have a simple static block inside a class, which is called the first thing when the class gets loaded.. 
 
     public class Test {
@@ -9,7 +9,7 @@ We can have a simple static block inside a class, which is called the first thin
         }
     }
 
-###Annotations 
+### Annotations 
 Annotations, a form of metadata, provide data about a program that is not part of the program itself. Annotations have no direct effect on the operation of the code they annotate.
 
 Annotations have a number of uses, among them:
@@ -24,7 +24,7 @@ Annotations can be used to replace comments and create meaningful documentation 
 They can be used to do Type checking for you. 
 
 Example : 
-You can write or dowload  apeice of code which checks if a perticular variable is never null. 
+You can write or dowload a peice of code which checks if a perticular variable is never null. 
 You need to write the annotation before declaring the variable and define the behaviour to the compiler.. 
 There are third parties who have written such peices of code for you.. 
 
@@ -38,11 +38,11 @@ There are third parties who have written such peices of code for you..
 **_@FunctionalInterface_** @FunctionalInterface annotation, introduced in Java SE 8, indicates that the type declaration is intended to be a functional interface, as defined by the Java Language Specification.
 
 
-###Cool annotations or meta-annotations. 
+### Cool annotations or meta-annotations. 
 
 **_@Retention_** @Retention annotation specifies how the marked annotation is stored:
 
-1. RetentionPolicy.SOURCE – The marked annotation is  retained only in the source level and is ignored by the compiler.
+1. RetentionPolicy.SOURCE – The marked annotation is retained only in the source level and is ignored by the compiler.
 2. RetentionPolicy.CLASS – The marked annotation is retained by the compiler at compile time, but is ignored by the Java Virtual Machine (JVM).
 3. RetentionPolicy.RUNTIME – The marked annotation is retained by the JVM so it can be used by the runtime environment.
 
@@ -62,7 +62,7 @@ There are third parties who have written such peices of code for you..
 **_@Repeatable_** @Repeatable annotation indicates that the marked annotation can be applied more than once to the same declaration or type use.
 
 
-###Generics 
+### Generics 
 Enable type to be a parameter while defining a class, method, interface etc.. 
 Advantages : 
 
@@ -73,13 +73,25 @@ Advantages :
 Example: Write a method which sorts an Array, we wouldnt care what type of elemets are there in the array as long as the class implements Comparable class 
 the above can be achieved by creating a bounded Type paramter.. 
     
-    public <T extends Comparablei<T>> void sort(T t){
+    public <T extends Comparable<T>> void sort(T t){
 
     }
 
+A comparable object is capable of comparing itself with another object. The class itself must implements the java.lang.Comparable interface to compare its instances. 
 
+    class T implements Comparable<T>{
+    	public int compareTo(T t){
+		return this.getX().compareTo(t.getX());}
+    }
 
-###Objects Basics 
+Comparator is external to the element type we are comparing. It’s a separate class. Create multiple separate classes (that implement Comparator) to compare by different members. Collections method and it takes Comparator. The sort() method invokes the compare() to sort objects.
+
+	class NameCompare implements Comparator<Movie> {
+	    public int compare(T t1, T t2){
+	        return t1.getX().compareTo(t2.getX());}
+    	}
+
+### Objects Basics 
 1. **Cloning**
 It is _faster_ than creation with the new keyword, because all the object memory is copied at once to the destination cloned object. Done by implementing *Cloneable* interface, which allows the method Object.clone() to perform a field-by-field copy.
 
