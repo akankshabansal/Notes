@@ -210,3 +210,60 @@ Risks in using Thread Pools
 * __Deadlock__ Thread pools introduce another case of deadlock, one in which all the executing threads are waiting for the results from the blocked threads waiting in the queue due to the unavailability of threads for execution.
 * __Thread Leakage__ Thread Leakage occurs if a thread is removed from the pool to execute a task but not returned to it when the task completed. As an example, if the thread throws an exception and pool class does not catch this exception. 
 * __Resource Thrashing__ If the thread pool size is very large then time is wasted in context switching between threads. 
+
+
+#### Runtime
+* __JVM Shutdown Hook__ Construct that allow developers to plug in a piece of code to be executed when the JVM is shutting down. This comes in handy in cases where we need to do special clean up operations in case the VM is shutting down.
+A Class which extends the java.lang.Thread class, and provide the logic that we want to perform when the VM is shutting down, inside the public void run() method. Then we register an instance of this class as a shutdown hook to the VM by calling Runtime.getRuntime().addShutdownHook(Thread) method.
+
+* __public void loadLibrary(String libname)__ This method loads the dynamic library with the specified library name. A file containing code is loaded from the local system from a place where library files are conventionally obtained.
+
+* __public void gc()__ This method runs the garbage collector. Calling this method suggests that the Java virtual machine expend effort toward recycling unused objects in order to make the memory they currently occupy available for quick reuse.
+
+
+#### Grabage Collection 
+__Mark Phase__
+When an object is created, its mark bit is set to 0(false). In the Mark phase, we set the marked bit for all the reachable objects (or the objects which a user can refer to) to 1(true). 
+Now to perform this operation we simply need to do a graph traversal, a depth first search approach would work for us. 
+Root is a variable that refer to an object and is directly accessible by local variable. 
+Note: If we have more than one root, then we simply have to call Mark() for all the root variables.
+
+__Sweep Phase__
+As the name suggests it “sweeps” the unreachable objects i.e. it clears the heap memory for all the unreachable objects. 
+All those objects whose marked value is set to false are cleared from the heap memory, for all other objects (reachable objects) the marked bit is set to false.
+
+__Disadvantages of Mark and Sweep Algorithm__
+* Normal program execution is suspended while the garbage collection algorithm runs.
+* It is run several times on a program, reachable objects end up being separated by many, small unused memory regions. Look at the below figure for better understanding.
+    
+__Advantages of Mark and Sweep Algorithm__
+* It handles the case with cyclic references, even in case of a cycle, this algorithm never ends up in an infinite loop.
+* There are no additional overheads incurred during the execution of the algorithm.
+
+
+#### Producer Consumer 
+
+    LinkedList list 
+    public class Producer implements Runnable{
+	    public class run(){
+	    }
+    }
+    public class Consumer implements Runnable{
+	    public class consume(){
+	    }
+    }
+    }
+    
+### Deadlock 
+__Semaphore__
+The thread that wants access to the shared resource tries to acquire a permit.
+If the semaphore’s count is greater than zero, then the thread acquires a permit, which causes the semaphore’s count to be decremented.
+Otherwise, the thread will be blocked until a permit can be acquired.
+If there is another thread waiting for a permit, then that thread will acquire a permit at that time.
+
+We can use a semaphore to lock access to a resource, each thread that wants to use that resource must first call acquire( ) before accessing the resource to acquire the lock. When the thread is done with the resource, it must call release( ) to release lock
+
+__synchronized__ keyword is used to make the class or method thread-safe which means only one thread can have lock of synchronized method and use it, other threads have to wait till the lock releases and anyone of them acquire that lock.
+
+
+
