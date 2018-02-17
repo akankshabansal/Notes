@@ -91,6 +91,11 @@ Comparator is external to the element type we are comparing. It’s a separate c
 	        return t1.getX().compareTo(t2.getX());}
     	}
 
+### MultiThreading
+* by extending the Thread class(Callable class) : the call() method needs to be implemented which returns a result on completion. method can throw an exception 
+* by creating a thread with a Runnable : cannot make a thread return result when it terminates. method cannot throw any exceptions
+
+
 ### Objects Basics 
 1. **Cloning**
 It is _faster_ than creation with the new keyword, because all the object memory is copied at once to the destination cloned object. Done by implementing *Cloneable* interface, which allows the method Object.clone() to perform a field-by-field copy.
@@ -120,7 +125,7 @@ In order to maintain this contract, a class that overrides the equals method mus
 base the hash function on immutable properties of the object
 
 6. toString method
-7. wait and notify thread signaling methods
+7. __wait and notify__ thread signaling methods
 Every object has two wait lists for threads associated with it. One wait list is used by the synchronized keyword to acquire the mutex lock associated with the object. If the mutex lock is currently held by another thread, the current thread is added to the list of blocked threads waiting on the mutex lock. The other wait list is used for signaling between threads accomplished through the wait and notify and notifyAll methods.
 
 Use of wait/notify allows efficient coordination of tasks between threads. When one thread needs to wait for another thread to complete an operation, or needs to wait until an event occurs, the thread can suspend its execution and wait to be notified when the event occurs. 
@@ -147,6 +152,61 @@ Java can have jagged array..
 Java doesnt support : default value in functions.. 
 Java doesnt support operator overloading for functions.. 
 
+#### Daemon thread 
+Daemon thread is a low priority thread that runs in background to perform tasks such as garbage collection. This status can only be set when the threads are created. Usage is to provide services to user thread for background supporting task.
 
+Properties:
+* It is an utmost low priority thread.
+* They can not prevent the JVM from exiting when all the user threads finish their execution.
+* If JVM finds running daemon thread, it terminates the thread and after that shutdown itself. JVM does not care whether Daemon thread is running or not.
+__void setDaemon(boolean status)__: This method is used to mark the current thread as daemon thread or user thread. 
 
-    
+#### Reflection 
+API used to modify behaviour of methods, classes, interfaces at runtime.
+Reflection gives us information about the class to which an object belongs and also the methods of that class which can be executed by using the object. 
+Can invoke methods at runtime irrespective of the access specifier used with them.
+* import java.lang.reflect package.
+* __Class__ getClass(): to get the name of the class to which an object belongs.
+* __Constructors__ getConstructors() : to get the public constructors of the class to which an object belongs.
+* __Methods__ getMethods(): to get the public methods of the class to which an objects belongs.
+
+Advantages of Using Reflection:
+* __Extensibility Features__ An application may make use of external, user-defined classes by creating instances of extensibility objects using their fully-qualified names.
+* __Debugging and testing tools__ Debuggers use the property of reflection to examine private members on classes.
+
+Drawbacks:
+* __Performance Overhead__ Reflective operations have slower performance than their non-reflective counterparts, and should be avoided in sections of code which are called frequently in performance-sensitive applications.
+* __Exposure of Internals__ Reflective code breaks abstractions and therefore may change behavior with upgrades of the platform.
+
+### Thread Pools 
+A thread pool reuses previously created threads to execute current tasks and offers a solution to the problem of thread cycle overhead and resource thrashing. Since the thread is already existing when the request arrives, the delay introduced by thread creation is eliminated, making the application more responsive.
+
+Java provides the Executor framework which is centered around the Executor interface, its sub-interface 
+* sub-interface –ExecutorService 
+* class-ThreadPoolExecutor, which implements both of these interfaces. 
+By using the executor, one only has to implement the Runnable objects and send them to the executor to execute.
+
+They allow you to take advantage of threading, but focus on the tasks that you want the thread to perform, instead of thread mechanics.
+To use thread pools, we first create a object of ExecutorService and pass a set of tasks to it. ThreadPoolExecutor class allows to set the core and maximum pool size.The runnables that are run by a particular thread are executed sequentially.
+
+* newFixedThreadPool(int)           Creates a fixed size thread pool.
+* newCachedThreadPool()             Creates a thread pool that creates new  threads as needed, but will reuse previously constructed threads when they are available
+* newSingleThreadExecutor()         Creates a single thread. 
+
+       public class Test {
+	     // Maximum number of threads in thread pool
+	    static final int MAX_T = 3;             
+	    public static void main(String[] args) {
+		Runnable r1 = new Task("task 1");
+                ExecutorService pool = Executors.newFixedThreadPool(MAX_T);  
+	        // passes the Task objects to the pool to execute (Step 3)
+        	pool.execute(r1);
+	        // pool shutdown ( Step 4)
+	        pool.shutdown();    
+    		}
+      }
+
+Risks in using Thread Pools
+* __Deadlock__ Thread pools introduce another case of deadlock, one in which all the executing threads are waiting for the results from the blocked threads waiting in the queue due to the unavailability of threads for execution.
+* __Thread Leakage__ Thread Leakage occurs if a thread is removed from the pool to execute a task but not returned to it when the task completed. As an example, if the thread throws an exception and pool class does not catch this exception. 
+* __Resource Thrashing__ If the thread pool size is very large then time is wasted in context switching between threads. 
