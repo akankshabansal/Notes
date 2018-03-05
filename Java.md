@@ -265,5 +265,18 @@ We can use a semaphore to lock access to a resource, each thread that wants to u
 
 __synchronized__ keyword is used to make the class or method thread-safe which means only one thread can have lock of synchronized method and use it, other threads have to wait till the lock releases and anyone of them acquire that lock.
 
+### Serialization
+__java.io.Serializable__ interface. It doesnt have any methods or variables, its just a __marker interface__. 
+_Static_ and _transient_ variables are not serialized. 
+__transient__ keyword : to mark variables which should not be serialized. One may have fields that are derived from other fields, and should only be done so programmatically, rather than having the state be persisted via serialization. 
+
+__SerialVersionUID__ is associated with each Serializable class. it is used during Deserialization to verify that sender and reciever of a serialized object have loaded classes for that object which are compatible with respect to serialization. If the reciever has loaded a class for the object that has different UID than that of corresponding sender’s class, the Deserialization will result in an __InvalidClassException__.A Serializable class can declare its own UID explicitly by declaring a field name.
+
+
+### Misc
+__java.lang.Cloneable__ override clone() method from Object class. Syntax of the clone() method is :
+
+    protected Object clone() throws CloneNotSupportedException
+
 
 
