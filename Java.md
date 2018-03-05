@@ -278,5 +278,15 @@ __java.lang.Cloneable__ override clone() method from Object class. Syntax of the
 
     protected Object clone() throws CloneNotSupportedException
 
-
+__TreeMap__
+TreeMap is a ordered collection of the keys. Uses a red-black tree in the background, to ensure no duplicates. For operations like add, remove, containsKey, time complexity is O(log n). TreeMap implements SortedMap interface
+     
+     static String electionWinner(String[] votes) {
+        Map<String, Integer> voteCount = new TreeMap<>(Collections.reverseOrder()); //By deault its asceding ordering in keys 
+        for(String candidate : votes){
+            voteCount.put(candidate, voteCount.getOrDefault(candidate, 0) + 1);
+        }
+        return Collections.max(voteCount.entrySet(), Map.Entry.comparingByValue()).getKey();
+    }
+     
 
