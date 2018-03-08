@@ -93,6 +93,14 @@ __4 way handshake__ : setsup a key which ensures that the all data/communication
 #### TCP security
 Need to isolate conversation from hosts which might be malicious which are routing data. TCP state is easy to guess so we would want to make sure attackers are not able to decrypt. 
 
+### IPSec 
+Replace IP header with IP sec headers this header can be encrypted. 
+
+IPSec tunnel : Want to give same guaratees as if the machine was connected to same network. In tunnel mode, the entire IP packet is encrypted and authenticated. It is then encapsulated into a new IP packet with a new IP header. Tunnel mode is used to create virtual private networks for network-to-network communications (e.g. between routers to link sites), host-to-network communications (e.g. remote user access) and host-to-host communications (e.g. private chat).
+
+Provides : Mobility Preserve network connections when a device moves to different physical portions of the network. 
+
+
 
 
 
