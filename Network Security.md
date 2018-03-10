@@ -101,6 +101,30 @@ IPSec tunnel : Want to give same guaratees as if the machine was connected to sa
 Provides : Mobility Preserve network connections when a device moves to different physical portions of the network. 
 
 
+### Firewall 
+Packet filter (stateless, stateful), Application layer proxies
+statefull : makes use of the TCP connection details to check if the data coming in correpomding to what was requested.. 
+From port numbering : firewall can know about protocol. 
+Telnet : port no 23. Firewall can match in this case : source and destination.. 
+FTP : port 20 and 21 : one data connection and one communication. Though firewall has to follow through the communication to determine when the data transfer starts.. 
+
+Packet Fragmentation attack : 
+Different routers have different payloads therefore packets need to be broken multiple times. However maliciously one can break packets to fool the firewalls. 
+
+Aplpication Proxy Firewalls : 
+A machine which acts as a firewall, however it has the understansding of the underlying application for which the packet is meant. it will uses its undersatnding to determine if the packet contains any viruses etc. 
+1. This mahine is highly vulnerable for attacks, so its imp that it only has least min-needed logic to run the application proxy code. 
+2. This layer will slow down the packet delivery to the user, so its only useful for cases like Emails (SMTP), where its okay for the packets delivery to be slow. 
 
 
+### Intrusion detection
+Anomaly and misuse detection
+two types : Network‐based, host‐based, or combination(most effective though most difficult)
 
+* Maintain data on known attacks
+* Look for activity with corresponding signatures
+* Try to figure out what is “normal”› Report anomalous behavior (If its too strict : too many false alarms) 
+** detect anomalies in packet headers
+** packet defragmentation
+** decode HTTP URI
+** applies rules to packets
