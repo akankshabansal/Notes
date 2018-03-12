@@ -128,3 +128,16 @@ two types : Network‐based, host‐based, or combination(most effective though 
 ** packet defragmentation
 ** decode HTTP URI
 ** applies rules to packets
+
+### Network infrastructure protocols
+
+BGP is used for all inter ‐ ISP routing
+Benign configuration errors affect about 1% of all routing table entries at any time
+Highly vulnerable to human errors, malicious attacks are possible. 
+Actual routing policies can be very complicated 
+
+
+
+
+
+
